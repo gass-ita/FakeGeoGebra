@@ -80,6 +80,7 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener {
         centerX = w/2;
         centerY = h/2;
         functions.add(new Function("3+2*x"));
+        functions.add(new Function("x*(1/2)"));
         addMouseWheelListener(this);
         addMouseMotionListener(this);
         addMouseListener(this);
