@@ -179,6 +179,9 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener   {
         
         for(int a = 0; a < functions.size(); a++){
             Function f = functions.get(a);
+            
+            if(!f.isVisible()) continue;
+
             g.setColor(functionColor[a % functionColor.length]);
             Point[] points = new Point[w];
             for(int i = 0; i < w; i++){

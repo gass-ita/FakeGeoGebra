@@ -3,10 +3,12 @@ public class Function {
     
     
     private String f;
+    private boolean isVisible;
 
 
     public Function(String f){
         this.f = f;
+        this.isVisible = true;
     }
     
     
@@ -93,6 +95,18 @@ public class Function {
                     else if (func.equals("sin")) x = Math.sin(x);
                     else if (func.equals("cos")) x = Math.cos(x);
                     else if (func.equals("tan")) x = Math.tan(x);
+                    else if (func.equals("atan")) x = Math.atan(x);
+                    else if (func.equals("asin")) x = Math.asin(x);
+                    else if (func.equals("acos")) x = Math.acos(x);
+                    else if (func.equals("abs")) x = Math.abs(x);
+                    else if (func.equals("log")) x = Math.log(x);
+                    else if (func.equals("ln")) x = Math.log(x);
+                    else if (func.equals("exp")) x = Math.exp(x);
+                    else if (func.equals("sinh")) x = Math.sinh(x);
+                    else if (func.equals("cosh")) x = Math.cosh(x);
+                    else if (func.equals("tanh")) x = Math.tanh(x);
+                    else if (func.equals("floor")) x = Math.floor(x);
+                    else if (func.equals("round")) x = Math.round(x);
                     else throw new RuntimeException("Unknown function: " + func);
                 } else {
                     throw new RuntimeException("Unexpected: " + (char)ch);
@@ -104,6 +118,24 @@ public class Function {
             }
         }.parse();
     }
+
+    public String getF() {
+        return f;
+    }
+
+    public void setF(String f) {
+        this.f = f;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean isVisible) {
+        this.isVisible = isVisible;
+    }
+
+
 
 
 }
