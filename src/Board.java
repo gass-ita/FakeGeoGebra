@@ -2,6 +2,7 @@ import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 import java.awt.event.MouseWheelListener;
+import java.util.ArrayList;
 import java.awt.event.MouseEvent;
 
 import java.awt.Graphics;
@@ -18,7 +19,7 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener {
     private final Color BACKGROUND_COLOR = Color.BLACK;
     private final Color AXIS_COLOR = Color.WHITE;
     private final Color GRID_COLOR = Color.GRAY;
-    private final Color FUNCTION_COLOR = Color.RED;
+    private final Color[] FUNCTION_COLOR = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.CYAN, Color.MAGENTA, Color.ORANGE, Color.PINK};
     private final Color DEFAULT_NUMBER_COLOR = Color.green;
     private final int DEFAULT_MIN_SCALE = 2;
     private final int DEFAULT_MAX_SCALE = 200;
@@ -37,7 +38,7 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener {
     private Color backgroundColor;
     private Color axisColor;
     private Color gridColor;
-    private Color functionColor;
+    private Color[] functionColor;
     private Color numberColor;
     private int Xscale;
     private int Yscale;
@@ -48,6 +49,8 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener {
     private int centerY;
     private int mouseX;
     private int mouseY;
+    private ArrayList<Function> functions;
+   
     
     
 
@@ -62,6 +65,7 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener {
 
     public Board(int x, int y, int w, int h){
         super();
+        functions = new ArrayList<>();
         setBounds(x, y, w, h);
         Xscale = DEFAULT_XSCALE;
         Yscale = DEFAULT_YSCALE;; 
@@ -75,6 +79,7 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener {
         numberColor = DEFAULT_NUMBER_COLOR;
         centerX = w/2;
         centerY = h/2;
+        functions.add(new Function("3+2*x"));
         addMouseWheelListener(this);
         addMouseMotionListener(this);
         addMouseListener(this);
@@ -149,23 +154,25 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener {
  
     private void drawFunction(Graphics g, int w, int h){
         Color c = g.getColor();
-        g.setColor(functionColor);
         double valuePerPixelX = calculateValuePerPixelInX(w);
         double valuePerPixelY = calculateValuePerPixelInY(h);
         
+        for(int a = 0; a < functions.size(); a++){
+            Function f = functions.get(a);
+            g.setColor(functionColor[a % functionColor.length]);
+            Point[] points = new Point[w];
+            for(int i = 0; i < w; i++){
+                double x = 0 + (valuePerPixelX * (i - centerX));
+                double y = f.f(x);
+                int j = convertToPixelValueInY(y, valuePerPixelY);
+                points[i] = new Point(i, j);
+            }
 
-        Point[] points = new Point[w];
-        for(int i = 0; i < w; i++){
-            double x = 0 + (valuePerPixelX * (i - centerX));
-            //*this is the function*//
-            double y = x;
-            int j = convertToPixelValueInY(y, valuePerPixelY);
-            points[i] = new Point(i, j);
+            for(int i = 0; i < points.length - 1; i++){
+                g.drawLine(points[i].x, points[i].y, points[i+1].x, points[i+1].y);
+            }
         }
-
-        for(int i = 0; i < points.length - 1; i++){
-            g.drawLine(points[i].x, points[i].y, points[i+1].x, points[i+1].y);
-        }
+        
         g.setColor(c);
     }
 
@@ -229,14 +236,14 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener {
         repaint();
     }
 
-    public Color getFunctionColor() {
+    /*public Color getFunctionColor() {
         return this.functionColor;
     }
 
     public void setFunctionColor(Color functionColor) {
         this.functionColor = functionColor;
         repaint();
-    }
+    }*/
 
     public int getXscale() {
         return this.Xscale;
