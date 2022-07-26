@@ -1,6 +1,6 @@
-import javax.swing.JButton;
+
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+
 import javax.swing.event.MouseInputListener;
 
 
@@ -68,6 +68,24 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener   {
 
     public Board(int x, int y, int w, int h) {
         super();
+        setup(x, y, w, h);
+    }
+
+    public Board(int x, int y, int w, int h, Function f) {
+        super();
+        setup(x, y, w, h);
+        addFunction(f);
+    }
+
+    public Board(int x, int y, int w, int h, Function[] f) {
+        super();
+        setup(x, y, w, h);
+        for (Function function : f) {
+            addFunction(function);
+        }
+    }
+
+    public void setup(int x, int y, int w, int h){
         functions = new ArrayList<>();
         setBounds(x, y, w, h);
         Xscale = DEFAULT_XSCALE;
@@ -85,7 +103,6 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener   {
         addMouseWheelListener(this);
         addMouseMotionListener(this);
         addMouseListener(this);
-        
     }
 
     
@@ -137,7 +154,7 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener   {
 
         //TODO: FIX ME
         /* -------------------------------------------------------------------------- */
-        
+        /* 
         double valuePerPixelX = calculateValuePerPixelInX(w);
         double valuePerPixelY = calculateValuePerPixelInY(h);
         g.setColor(numberColor);
@@ -149,7 +166,7 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener   {
             if(i % 5 == 0)
                 g.drawString(i + "", convertToPixelValueInX(0, valuePerPixelX), convertToPixelValueInY(i,  valuePerPixelY));
         }
-       
+        */
         /* -------------------------------------------------------------------------- */
 
         g.setColor(c);
@@ -295,6 +312,16 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener   {
 
     public void setCenterY(int centerY){
         this.centerY = centerY;
+        repaint();
+    }
+
+    public void addFunction(Function f){
+        functions.add(f);
+        repaint();
+    }
+
+    public void removeFunction(int index){
+        functions.remove(index);
         repaint();
     }
 

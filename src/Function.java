@@ -90,9 +90,9 @@ public class Function {
                         x = parseFactor();
                     }
                     if (func.equals("sqrt")) x = Math.sqrt(x);
-                    else if (func.equals("sin")) x = Math.sin(Math.toRadians(x));
-                    else if (func.equals("cos")) x = Math.cos(Math.toRadians(x));
-                    else if (func.equals("tan")) x = Math.tan(Math.toRadians(x));
+                    else if (func.equals("sin")) x = Math.sin(x);
+                    else if (func.equals("cos")) x = Math.cos(x);
+                    else if (func.equals("tan")) x = Math.tan(x);
                     else throw new RuntimeException("Unknown function: " + func);
                 } else {
                     throw new RuntimeException("Unexpected: " + (char)ch);
