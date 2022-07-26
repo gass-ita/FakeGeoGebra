@@ -1,5 +1,8 @@
+import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.event.MouseInputListener;
+
 
 import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
@@ -10,7 +13,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseWheelEvent;
 
-class Board extends JPanel implements MouseWheelListener, MouseInputListener {
+class Board extends JPanel implements MouseWheelListener, MouseInputListener   {
     /* -------------------------------------------------------------------------- */
     /*                               DEFAULT VALUES                               */
     /* -------------------------------------------------------------------------- */
@@ -63,7 +66,7 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener {
     
     
 
-    public Board(int x, int y, int w, int h){
+    public Board(int x, int y, int w, int h) {
         super();
         functions = new ArrayList<>();
         setBounds(x, y, w, h);
@@ -79,11 +82,10 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener {
         numberColor = DEFAULT_NUMBER_COLOR;
         centerX = w/2;
         centerY = h/2;
-        functions.add(new Function("3+2*x"));
-        functions.add(new Function("x*(1/2)"));
         addMouseWheelListener(this);
         addMouseMotionListener(this);
         addMouseListener(this);
+        
     }
 
     
@@ -135,7 +137,7 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener {
 
         //TODO: FIX ME
         /* -------------------------------------------------------------------------- */
-        /* 
+        
         double valuePerPixelX = calculateValuePerPixelInX(w);
         double valuePerPixelY = calculateValuePerPixelInY(h);
         g.setColor(numberColor);
@@ -147,7 +149,7 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener {
             if(i % 5 == 0)
                 g.drawString(i + "", convertToPixelValueInX(0, valuePerPixelX), convertToPixelValueInY(i,  valuePerPixelY));
         }
-        */
+       
         /* -------------------------------------------------------------------------- */
 
         g.setColor(c);

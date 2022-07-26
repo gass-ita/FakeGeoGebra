@@ -12,7 +12,9 @@ public class Function {
     
     public double f(double x){
         //replace the "x" in f with the value of x
-        String f_x = f.replace("x", Double.toString(x));  
+        f = f.replace("e", Double.toString(Math.E));
+        f = f.replace("pi", Double.toString(Math.PI));
+        String f_x = f.replace("x", Double.toString(x));
         //evaluate the function
         return eval(f_x);
     }
