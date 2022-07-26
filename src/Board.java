@@ -3,14 +3,13 @@ import javax.swing.event.MouseInputListener;
 
 import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseWheelEvent;
 
-class Board extends JPanel implements MouseWheelListener, MouseMotionListener, MouseInputListener {
+class Board extends JPanel implements MouseWheelListener, MouseInputListener {
     /* -------------------------------------------------------------------------- */
     /*                               DEFAULT VALUES                               */
     /* -------------------------------------------------------------------------- */
@@ -20,9 +19,11 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener, M
     private final Color AXIS_COLOR = Color.WHITE;
     private final Color GRID_COLOR = Color.GRAY;
     private final Color FUNCTION_COLOR = Color.RED;
-    private final int DEFAULT_MIN_SCALE = 1;
-    private final int DEFAULT_MAX_SCALE = 100;
+    private final Color DEFAULT_NUMBER_COLOR = Color.green;
+    private final int DEFAULT_MIN_SCALE = 2;
+    private final int DEFAULT_MAX_SCALE = 200;
     private final int DEFAULT_SCALE_STEP = 3;
+    
     
     
 
@@ -37,6 +38,7 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener, M
     private Color axisColor;
     private Color gridColor;
     private Color functionColor;
+    private Color numberColor;
     private int Xscale;
     private int Yscale;
     private int minScale;
@@ -70,6 +72,7 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener, M
         minScale = DEFAULT_MIN_SCALE;
         maxScale = DEFAULT_MAX_SCALE;
         scaleStep = DEFAULT_SCALE_STEP;
+        numberColor = DEFAULT_NUMBER_COLOR;
         centerX = w/2;
         centerY = h/2;
         addMouseWheelListener(this);
@@ -109,6 +112,7 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener, M
 
     private void drawGrid(Graphics g, int w, int h){
         Color c = g.getColor();
+        
         g.setColor(gridColor);
         for(int i = centerX; i < w; i += Xscale){
             g.drawLine(i, 0, i, h);
@@ -122,21 +126,40 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener, M
         for(int i = centerY; i > 0; i -= Yscale){
             g.drawLine(0, i, w, i);
         }
+
+        //TODO: FIX ME
+        /* -------------------------------------------------------------------------- */
+        /* 
+        double valuePerPixelX = calculateValuePerPixelInX(w);
+        double valuePerPixelY = calculateValuePerPixelInY(h);
+        g.setColor(numberColor);
+        for(int i = -centerX/Xscale; i < w - centerX; i++){
+            if(i % 5 == 0)
+                g.drawString(i + "", convertToPixelValueInX(i,  valuePerPixelX), convertToPixelValueInY(0, valuePerPixelY));
+        }
+        for(int i = -centerY/Yscale; i < h - centerY; i++){
+            if(i % 5 == 0)
+                g.drawString(i + "", convertToPixelValueInX(0, valuePerPixelX), convertToPixelValueInY(i,  valuePerPixelY));
+        }
+        */
+        /* -------------------------------------------------------------------------- */
+
         g.setColor(c);
     }
-
+ 
     private void drawFunction(Graphics g, int w, int h){
         Color c = g.getColor();
         g.setColor(functionColor);
         double valuePerPixelX = calculateValuePerPixelInX(w);
         double valuePerPixelY = calculateValuePerPixelInY(h);
+        
 
         Point[] points = new Point[w];
         for(int i = 0; i < w; i++){
             double x = 0 + (valuePerPixelX * (i - centerX));
             //*this is the function*//
             double y = x;
-            int j = convertToPixelValue(y, valuePerPixelY, h);
+            int j = convertToPixelValueInY(y, valuePerPixelY);
             points[i] = new Point(i, j);
         }
 
@@ -164,11 +187,11 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener, M
         return valuePerPixel;
     }
 
-    private int convertToPixelValue(double value, double valuePerPixel, int h){
-        
+    private int convertToPixelValueInY(double value, double valuePerPixel){
         return (int)((centerY)-(value/valuePerPixel));
-        
-
+    }
+    private int convertToPixelValueInX(double value, double valuePerPixel){
+        return (int)((centerX)+(value/valuePerPixel));
     }  
 
     /* -------------------------------------------------------------------------- */
@@ -269,7 +292,6 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener, M
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        // TODO Auto-generated method stub
         if(e.isShiftDown())
             setXscale(getXscale()+e.getWheelRotation() * scaleStep);
         else{
@@ -368,13 +390,4 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener, M
         // TODO Auto-generated method stub
         
     }
-
-
-
-    
-
-
-
-	
-
 }
