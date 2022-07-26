@@ -11,29 +11,30 @@ public class App implements ActionListener {
 
     Board board;
     JTextField textField;
+    JButton button;
+    JFrame frame;
 
     public static void main(String[] args)  throws Exception  {
         new App();
     }
 
     public App() throws Exception {
-        JFrame frame = new JFrame("App");
-        JButton button = new JButton("Add");
-        textField = new JTextField();
-        textField.setBounds(10, 40, 100, 30);
-        button.setBounds(10, 10, 100, 30);
-        
-        button.addActionListener(this);
-        button.setActionCommand("AddButton");
+        frame = new JFrame("App");
         frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300, 300);
         frame.setVisible(true);
-        frame.setLocation(500, 500);
-        board = new Board(100,100,600,600, new Function[]{
-            
 
-        });
+        button = new JButton("Add");
+        button.setBounds(10, 10, 100, 30);
+        button.addActionListener(this);
+        button.setActionCommand("AddButton");
+
+        textField = new JTextField();
+        textField.setBounds(10, 40, 100, 30);
+        
+        board = new Board(100,100,600,600);
+        
         frame.add(button);
         frame.add(textField);
         frame.add(board);
