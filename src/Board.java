@@ -239,14 +239,14 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener   {
         repaint();
     }
 
-    /*public Color getFunctionColor() {
+    public Color[] getFunctionColor() {
         return this.functionColor;
     }
 
-    public void setFunctionColor(Color functionColor) {
+    public void setFunctionColor(Color[] functionColor) {
         this.functionColor = functionColor;
         repaint();
-    }*/
+    }
 
     public int getXscale() {
         return this.Xscale;
