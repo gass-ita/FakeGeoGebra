@@ -1,4 +1,6 @@
 import javax.swing.JPanel;
+import javax.swing.event.MouseInputListener;
+
 import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -8,7 +10,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseWheelEvent;
 
-class Board extends JPanel implements MouseWheelListener, MouseMotionListener {
+class Board extends JPanel implements MouseWheelListener, MouseMotionListener, MouseInputListener {
     /* -------------------------------------------------------------------------- */
     /*                               DEFAULT VALUES                               */
     /* -------------------------------------------------------------------------- */
@@ -20,7 +22,7 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener {
     private final Color FUNCTION_COLOR = Color.RED;
     private final int DEFAULT_MIN_SCALE = 1;
     private final int DEFAULT_MAX_SCALE = 100;
-    private final int DEFAULT_SCALE_STEP = 1;
+    private final int DEFAULT_SCALE_STEP = 3;
     
     
 
@@ -42,6 +44,9 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener {
     private int scaleStep;
     private int centerX;
     private int centerY;
+    private int mouseX;
+    private int mouseY;
+    
     
 
     
@@ -69,6 +74,7 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener {
         centerY = h/2;
         addMouseWheelListener(this);
         addMouseMotionListener(this);
+        addMouseListener(this);
     }
 
     
@@ -82,10 +88,8 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener {
         drawGrid(g, w, h);
         drawAxis(g, w, h);
         drawFunction(g, w, h);
-        
-        
-
-        
+        drawFunction(g, w, h);
+        drawFunction(g, w, h);
     }
     
     private void drawBackground(Graphics g, int w, int h){
@@ -131,7 +135,7 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener {
         for(int i = 0; i < w; i++){
             double x = 0 + (valuePerPixelX * (i - centerX));
             //*this is the function*//
-            double y = Math.sin(x);
+            double y = x;
             int j = convertToPixelValue(y, valuePerPixelY, h);
             points[i] = new Point(i, j);
         }
@@ -281,21 +285,31 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener {
 
 
 
+
     @Override
     public void mouseDragged(MouseEvent e) {
-        // TODO Auto-generated method stub
-        //move the center of the board
-        System.out.println("dragged");
-        int lastX = e.getX();
-        int lastY = e.getY();
-        if(e.isShiftDown()){
-            setCenterX(getCenterX() + (lastX - getCenterX()));
-        } else if(e.isControlDown()){
-            setCenterY(getCenterY() + (lastY - getCenterY()));
-        } else{
-            setCenterX(getCenterX() + (lastX - getCenterX()));
-            setCenterY(getCenterY() + (lastY - getCenterY()));
+        
+        int b1 = MouseEvent.BUTTON1_DOWN_MASK;
+        int b2 = MouseEvent.BUTTON2_DOWN_MASK;
+        if ((e.getModifiersEx() & (b1 | b2)) == b2) {
+            setCenterX(getCenterX() + (mouseX - e.getX()));
+            setCenterY(getCenterY() + (mouseY - e.getY()));
         }
+        
+        if ((e.getModifiersEx() & (b1 | b2)) == b1) {
+            int lastX = e.getX();
+            int lastY = e.getY();
+            if(e.isShiftDown()){
+                setCenterX(getCenterX() + (lastX - getCenterX()));
+            } else if(e.isControlDown()){
+                setCenterY(getCenterY() + (lastY - getCenterY()));
+            } else{
+                setCenterX(getCenterX() + (lastX - getCenterX()));
+                setCenterY(getCenterY() + (lastY - getCenterY()));
+            }
+        }
+        
+        
 
         
     }
@@ -307,6 +321,57 @@ class Board extends JPanel implements MouseWheelListener, MouseMotionListener {
         // TODO Auto-generated method stub
         
     }
+
+
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+        int b1 = MouseEvent.BUTTON1_DOWN_MASK;
+        int b2 = MouseEvent.BUTTON2_DOWN_MASK;
+        if ((e.getModifiersEx() & (b1 | b2)) == b2) {
+            mouseX = e.getX();
+            mouseY = e.getY();
+
+        }
+        
+    }
+
+
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+
+    
 
 
 
