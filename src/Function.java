@@ -14,14 +14,14 @@ public class Function {
     
     public double f(double x){
         //replace the "x" in f with the value of x
-        f = f.replace("e", Double.toString(Math.E));
-        f = f.replace("pi", Double.toString(Math.PI));
+        f = f.replace("E", Double.toString(Math.E));
+        f = f.replace("PI", Double.toString(Math.PI));
         String f_x = f.replace("x", Double.toString(x));
         //evaluate the function
         return eval(f_x);
     }
 
-    public static double eval(final String str) {
+    public static double eval(final String str) throws RuntimeException {
         return new Object() {
             int pos = -1, ch;
             
@@ -107,6 +107,7 @@ public class Function {
                     else if (func.equals("tanh")) x = Math.tanh(x);
                     else if (func.equals("floor")) x = Math.floor(x);
                     else if (func.equals("round")) x = Math.round(x);
+                    else if (func.equals("ceil")) x = Math.ceil(x);
                     else throw new RuntimeException("Unknown function: " + func);
                 } else {
                     throw new RuntimeException("Unexpected: " + (char)ch);
