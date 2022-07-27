@@ -1,5 +1,5 @@
 
-public class Function {
+public class Function  {
     
     
     private String f;
@@ -19,9 +19,10 @@ public class Function {
         String f_x = f.replace("x", Double.toString(x));
         //evaluate the function
         return eval(f_x);
+        
     }
 
-    public static double eval(final String str) throws RuntimeException {
+    public static double eval(final String str) throws RuntimeException{
         return new Object() {
             int pos = -1, ch;
             
