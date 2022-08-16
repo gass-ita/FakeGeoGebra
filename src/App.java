@@ -1,5 +1,6 @@
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
@@ -13,6 +14,7 @@ public class App implements ActionListener {
     JTextField textField;
     JButton button;
     JFrame frame;
+    JCheckBox checkBox;
 
     public static void main(String[] args)  throws Exception  {
         new App();
@@ -35,18 +37,22 @@ public class App implements ActionListener {
         
         board = new Board(100,100,600,600);
         
+        
+        checkBox = new JCheckBox();
+        checkBox.setBounds(110, 40, 30, 30);
+
         frame.add(button);
         frame.add(textField);
         frame.add(board);
+        frame.add(checkBox);
 
-        
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         if(e.getActionCommand().equals("AddButton")){
-            board.addFunction(new Function(textField.getText()));
+            board.addFunction(new Function(textField.getText(), checkBox.isSelected()));
             textField.setText("");
         }
         

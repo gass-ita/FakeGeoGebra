@@ -191,8 +191,14 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener   {
                 points[i] = new Point(i, j);
             }
 
-            for(int i = 0; i < points.length - 1; i++){
-                g.drawLine(points[i].x, points[i].y, points[i+1].x, points[i+1].y);
+            if(f.isPolyLine()){
+                for(int i = 0; i < points.length - 1; i++){
+                    g.drawLine(points[i].x, points[i].y, points[i+1].x, points[i+1].y);
+                }
+            } else {
+                for(int i = 0; i < points.length; i++){
+                    g.drawOval(points[i].x, points[i].y, 1, 1);
+                }
             }
         }
         

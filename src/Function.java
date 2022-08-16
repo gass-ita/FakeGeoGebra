@@ -4,11 +4,12 @@ public class Function  {
     
     private String f;
     private boolean isVisible;
+    private boolean isPolyLine;
 
-
-    public Function(String f){
+    public Function(String f, boolean isPolyLine){
         this.f = f;
         this.isVisible = true;
+        this.isPolyLine = isPolyLine;
     }
     
     
@@ -137,6 +138,13 @@ public class Function  {
         this.isVisible = isVisible;
     }
 
+    public boolean isPolyLine() {
+        return isPolyLine;
+    }
+
+    public void setPolyLine(boolean isPolyLine) {
+        this.isPolyLine = isPolyLine;
+    }
 
 
 
