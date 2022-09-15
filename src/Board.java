@@ -324,14 +324,7 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener   {
         repaint();
     }
 
-    public void addFunction(Function f){
-        try{
-            f.f(0);
-        } catch (RuntimeException e){
-            System.out.println("function invalid");
-            return;
-        }
-        
+    public void addFunction(Function f){     
         functions.add(f);
         repaint();
     }

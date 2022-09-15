@@ -7,7 +7,7 @@ public class Function  {
     private boolean isPolyLine;
 
     public Function(String f, boolean isPolyLine){
-        this.f = f;
+        setF(f);
         this.isVisible = true;
         this.isPolyLine = isPolyLine;
     }
@@ -126,8 +126,15 @@ public class Function  {
         return f;
     }
 
-    public void setF(String f) {
-        this.f = f;
+    public void setF(String f) throws RuntimeException {
+        try{
+            eval(f.replace('x','0'));
+            this.f = f;
+        }catch(RuntimeException e){
+             System.out.println("Invalid function");
+             throw e;
+        }
+        
     }
 
     public boolean isVisible() {
