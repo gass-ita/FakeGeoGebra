@@ -98,8 +98,10 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener   {
         maxScale = DEFAULT_MAX_SCALE;
         scaleStep = DEFAULT_SCALE_STEP;
         numberColor = DEFAULT_NUMBER_COLOR;
+        
         centerX = w/2;
         centerY = h/2;
+
         addMouseWheelListener(this);
         addMouseMotionListener(this);
         addMouseListener(this);
@@ -174,6 +176,7 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener   {
  
     private void drawFunction(Graphics g, int w, int h){
         Color c = g.getColor();
+        
         double valuePerPixelX = calculateValuePerPixelInX(w);
         double valuePerPixelY = calculateValuePerPixelInY(h);
         
@@ -183,7 +186,9 @@ class Board extends JPanel implements MouseWheelListener, MouseInputListener   {
             if(!f.isVisible()) continue;
 
             g.setColor(functionColor[a % functionColor.length]);
+
             Point[] points = new Point[w];
+
             for(int i = 0; i < w; i++){
                 double x = 0 + (valuePerPixelX * (i - centerX));
                 double y = f.f(x);
