@@ -21,9 +21,6 @@ public class TreeNode{
             }
 
         
-
-        if(!hasRDomain(root)) throw new RuntimeException();
-
         double leftEvaluation = evaluateTreeNode(root.left);
         double rightEvaluation = evaluateTreeNode(root.right);
 
@@ -44,10 +41,8 @@ public class TreeNode{
         if(root == null) throw new NullPointerException();
         if(root.left == null && root.right == null) return true;
         
-        double leftEvaluation = evaluateTreeNode(root.left);
-        double rightEvaluation = evaluateTreeNode(root.right);
         //EXEPTION
-        if(root.data.equals("/") && leftEvaluation == 0){
+        if(root.data.equals("/") && root.right.hasX()){
             hasRDomain = false;
         }
         
@@ -63,8 +58,17 @@ public class TreeNode{
         return hasRDomain(root.left) && hasRDomain(root.right);
     }
 
+    public boolean hasRDomain() throws Exception{return hasRDomain(this);}
 
 
+    public boolean hasX(TreeNode root){
+        if(root == null) throw new NullPointerException();
+        if(root.left == null && root.right == null) 
+            return root.data.equals("x");
+        return hasX(root.left) || hasX(root.right);
+    }
+
+    public boolean hasX(){return hasX(this);}
 
 
     @Override
@@ -76,4 +80,6 @@ public class TreeNode{
         s = "(" + s + ")";
         return s;
     }
+
+   
 }

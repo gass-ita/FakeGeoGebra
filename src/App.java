@@ -18,17 +18,17 @@ public class App implements ActionListener {
 
     public static void main(String[] args){
         //new App();
-
+       
 
         
-        TreeNode node = new TreeNode("^");
-        node.left = new TreeNode("27");
-        node.right = new TreeNode("/");
-        node.right.left = new TreeNode("1");
-        node.right.right = new TreeNode("3");
+        TreeNode node = new TreeNode("/");
+        node.left = new TreeNode("3");
+        node.right = new TreeNode("4");
+
+        
 
         try {
-            System.out.println(node.evaluateTreeNode());
+            System.out.println(node.hasRDomain());
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
