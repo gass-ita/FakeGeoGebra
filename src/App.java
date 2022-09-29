@@ -16,8 +16,23 @@ public class App implements ActionListener {
     JFrame frame;
     JCheckBox checkBox;
 
-    public static void main(String[] args)  throws Exception  {
-        new App();
+    public static void main(String[] args){
+        //new App();
+
+
+        
+        TreeNode node = new TreeNode("^");
+        node.left = new TreeNode("27");
+        node.right = new TreeNode("/");
+        node.right.left = new TreeNode("1");
+        node.right.right = new TreeNode("3");
+
+        try {
+            System.out.println(node.evaluateTreeNode());
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public App() throws Exception {
